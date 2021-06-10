@@ -41,7 +41,7 @@
           <source>${java.version}</source>
           <target>${java.version}</target>
           <compilerArguments>
-            <extdirs>lib</extdirs>
+            <extdirs>${base.lib.path}</extdirs>
           </compilerArguments>
         </configuration>
       </plugin>
@@ -56,7 +56,6 @@
 	                <goal>copy-dependencies</goal>
 	            </goals>
 	            <configuration>
-			<outputDirectory>${base.lib.path}</outputDirectory>
 	                <outputDirectory>${project.build.directory}/lib</outputDirectory>
 	                <excludeTransitive>false</excludeTransitive>
 	                <stripVersion>false</stripVersion>
@@ -79,14 +78,38 @@
                       <Class-Path>lib/commons-codec-1.9.jar lib/javaWsDiscovery-0.1.jar</Class-Path>
                   </manifestEntries>
               </archive>
+              <includes>
+                 <!-- 打jar包时，只打包class文件 -->
+                 <include>**/*</include>
+              </includes>
           </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>2.4</version>
+        <configuration>
+            <archive>
+                <manifest>
+                    <!--程序入口-->
+                    <mainClass>de.onvif.Main</mainClass>
+                </manifest>
+                <manifestEntries>
+                    <Class-Path>lib/*.jar</Class-Path>
+                </manifestEntries>
+            </archive>
+            <descriptors>
+                <!--assembly配置文件路径，注意需要在项目中新建文件assembly/release.xml-->
+                <descriptor>${basedir}/src/main/assembly/release.xml</descriptor>
+            </descriptors>
+        </configuration>
+    </plugin>
     </plugins>
     <resources>
        <resource>
            <directory>${base.lib.path}</directory>
            <targetPath>lib</targetPath>
- 	   <filtering>false</filtering>
+ 			<filtering>false</filtering>
            <includes>
                <include>**/*.jar</include>
            </includes>
@@ -94,7 +117,6 @@
     </resources>
   </build>
   
-
   <distributionManagement>
     <repository>
       <id>internal</id>
