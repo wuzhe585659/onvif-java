@@ -12,8 +12,8 @@ import org.me.javawsdiscovery.DeviceDiscovery;
  * @date 2015-06-18
  */
 public class OnvifDiscovery {
-    /*
-	public static List<OnvifPointer> discoverOnvifDevices() {
+       /*
+       public static List<OnvifPointer> discoverOnvifDevices() {
 		final ArrayList<OnvifPointer> onvifPointers = new ArrayList<>();
 		final Collection<URL> urls = DeviceDiscovery.discoverWsDevicesAsUrls("^http$", ".*onvif.*");
 		for (URL url : urls) {
@@ -28,7 +28,7 @@ public class OnvifDiscovery {
 	}
 	*/
 	public static Collection<URL> discoverOnvifDevices() {
-        Collection<URL> urls = DeviceDiscovery.discoverWsDevicesAsUrls("^http$", ".*onvif.*");
-        return urls;
-    }
+            Collection<URL> urls = DeviceDiscovery.discoverWsDevicesAsUrls("^http$", ".*onvif.*");
+            return urls;
+        }
 }
