@@ -1,0 +1,93 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.onvif</groupId>
+  <artifactId>onvif-java-lib</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  
+  <properties>
+    <java.version>1.7</java.version>
+    <java.release>8</java.release>
+    <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <base.lib.path>${project.basedir}/src/main/lib</base.lib.path>
+  </properties>
+  
+  <dependencies>
+    <dependency>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
+      <version>1.9</version>
+      <scope>system</scope>
+      <systemPath>${base.lib.path}/commons-codec-1.9.jar</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>javaWsDiscovery</groupId>
+      <artifactId>javaWsDiscovery</artifactId>
+      <version>0.1</version>
+      <scope>system</scope>
+      <systemPath>${base.lib.path}/javaWsDiscovery-0.1.jar</systemPath>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven-compiler-plugin.version}</version>
+        <configuration>
+          <jdkToolchain>
+            <version>${java.release}</version>
+          </jdkToolchain>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
+          <compilerArguments>
+            <extdirs>lib</extdirs>
+          </compilerArguments>
+        </configuration>
+      </plugin>
+      <plugin>
+	    <groupId>org.apache.maven.plugins</groupId>
+	    <artifactId>maven-dependency-plugin</artifactId>
+	    <executions>
+	        <execution>
+	            <id>copy-dependencies</id>
+	            <phase>package</phase>
+	            <goals>
+	                <goal>copy-dependencies</goal>
+	            </goals>
+	            <configuration>
+	                <outputDirectory>${project.build.directory}/lib</outputDirectory>
+	                <excludeTransitive>false</excludeTransitive>
+	                <stripVersion>false</stripVersion>
+	            </configuration>
+	        </execution>
+	    </executions>
+	  </plugin>
+      <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <configuration>
+              <archive>
+                  <manifest>
+                      <addClasspath>true</addClasspath>
+                      <classpathPrefix>lib</classpathPrefix>
+                      <mainClass>de.onvif.Main</mainClass>
+                  </manifest>
+                  <!--add local jar package to MANIFEST.MF-->
+                  <manifestEntries>
+                      <Class-Path>lib/commons-codec-1.9.jar lib/javaWsDiscovery-0.1.jar</Class-Path>
+                  </manifestEntries>
+              </archive>
+          </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  
+
+  <distributionManagement>
+    <repository>
+      <id>internal</id>
+      <url>file://${project.build.directory}/mvn-repo</url>
+    </repository>
+  </distributionManagement>
+</project>
