@@ -56,6 +56,7 @@
 	                <goal>copy-dependencies</goal>
 	            </goals>
 	            <configuration>
+			<outputDirectory>${base.lib.path}</outputDirectory>
 	                <outputDirectory>${project.build.directory}/lib</outputDirectory>
 	                <excludeTransitive>false</excludeTransitive>
 	                <stripVersion>false</stripVersion>
