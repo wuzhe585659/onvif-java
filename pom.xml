@@ -82,6 +82,16 @@
           </configuration>
       </plugin>
     </plugins>
+    <resources>
+       <resource>
+           <directory>${base.lib.path}</directory>
+           <targetPath>lib</targetPath>
+ 	   <filtering>false</filtering>
+           <includes>
+               <include>**/*.jar</include>
+           </includes>
+       </resource>
+    </resources>
   </build>
   
 
