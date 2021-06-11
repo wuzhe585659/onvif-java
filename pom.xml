@@ -103,6 +103,15 @@
                 <descriptor>${basedir}/src/main/assembly/release.xml</descriptor>
             </descriptors>
         </configuration>
+	<executions>
+          <execution>
+              <id>make-assembly</id>
+              <phase>package</phase>
+              <goals>
+                  <goal>single</goal>
+              </goals>
+          </execution>
+        </executions>
     </plugin>
     </plugins>
     <resources>
