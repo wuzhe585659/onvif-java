@@ -118,7 +118,7 @@
        <resource>
            <directory>${base.lib.path}</directory>
            <targetPath>lib</targetPath>
- 			<filtering>false</filtering>
+ 	   <filtering>false</filtering>
            <includes>
                <include>**/*.jar</include>
            </includes>
